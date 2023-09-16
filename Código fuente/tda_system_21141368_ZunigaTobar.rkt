@@ -21,9 +21,25 @@ Descripción: Crea una lista que representa un conjunto de chatbots
 (define (hacer-sistema nombre chatbot1)
   (list nombre chatbot1 (current-seconds)))
 
-#||#
-(define get-system-name car)
+(define (existe chatbot)
+  (if (= (cdr (system)) nombre)
+      #t
+      #t))
 
-#||#
+(define (hacer-chatbot nombre)
+  (list nombre))
+
+#|
+Función: system-add-chatbot
+Dominio: system x chatbot
+Recorrido: system
+Descripción:
+|#
+(define (system-add-chatbot  nombre)
+  (if (existe nombre)
+      (display "Este chatbot ya existe")
+      (hacer-chatbot nombre)))
+
+(define get-posición (lambda (system) ))
 
 (provide (all-defined-out))

@@ -18,8 +18,11 @@ Dominio: string (nombre) x string (chatbot1)
 Recorrido: lista con elementos para un conjunto de chatbots, además del tiempo actual
 Descripción: Crea una lista que representa un conjunto de chatbots
 |#
-(define (hacer-sistema nombre chatbot1 chatbot2)
-  (list nombre chatbot1 chatbot2 (current-seconds)))
+(define (hacer-sistema nombre chatbot1)
+  (list nombre chatbot1 (current-seconds)))
+
+#||#
+(define get-system-name car)
 
 #||#
 

@@ -7,14 +7,14 @@ Requerimientos No Funcionales:		Puntaje:
 Autoevaluación				
 Lenguaje				1
 Verisón					1
-Standard
-No variables
-Documentación
-Dom->Rec
-Organización
-Historial
-Script de pruebas
-Prerrequisitos
+Standard				
+No variables				
+Documentación				
+Dom->Rec				
+Organización				
+Historial				
+Script de pruebas			
+Prerrequisitos				
 
 
 Requerimientos Funcionales:		Puntaje:

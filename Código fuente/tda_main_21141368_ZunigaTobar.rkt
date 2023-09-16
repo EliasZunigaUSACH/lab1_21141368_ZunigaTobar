@@ -21,8 +21,6 @@ Descripción
       (hacer-sistema string null)
       #f))
 
-;(define system-add-chatbot )
-
 ;(define option )
 
 ;(define flow )
@@ -31,9 +29,9 @@ Descripción
 
 #|
 Función: Chatbot
-Dominio:
-Recorrido:
-Descripción:
+Dominio: 
+Recorrido: 
+Descripción: 
 |#
 ;(define chatbot )
 
