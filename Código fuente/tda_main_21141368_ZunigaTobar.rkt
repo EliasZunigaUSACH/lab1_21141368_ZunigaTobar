@@ -9,6 +9,10 @@ Profesor Gonzalo Matrinez
 
 (require "tda_system_21141368_ZunigaTobar.rkt")
 (require "tda_chatbot_21141368_ZunigaTobar.rkt")
+(require "tda_flow_21141368_ZunigaTobar.rkt")
+(require "tda_option_21141368_ZunigaTobar.rkt")
+(require "tda_user_21141368_ZunigaTobar.rkt")
+(require "tda_chatHistory_21141368_ZunigaTobar.rkt")
 
 #|
 Función:
