@@ -21,7 +21,7 @@ Recorrido:
 Descripción
 |#
 (define (system string)
-  (if (es-string string)
+  (if (string? string)
       (hacer-sistema string null)
       #f))
 
@@ -39,8 +39,6 @@ Descripción:
 |#
 ;(define chatbot )
 
-;(define chatbot-add-flow )
-
 ;(define system-add-user )
 
 ;(define system-login )
@@ -57,6 +55,6 @@ Descripción:
 
 ;Ejecución
 
-(define s0 (system "New"))
+(define s0 (system "newSystem"))
 s0
 
