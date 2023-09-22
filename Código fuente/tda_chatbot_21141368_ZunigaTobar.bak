@@ -2,6 +2,9 @@
 
 (require "tda_system_21141368_ZunigaTobar.rkt")
 
+;(define chatbot-add-flow )
 
+(define (chatbot nombre id)
+  (list nombre id))
 
 (provide (all-defined-out))

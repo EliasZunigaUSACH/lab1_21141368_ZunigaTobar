@@ -1,18 +1,6 @@
 #lang racket
 
 #|
-Función: es-string
-Dominio: string
-Recorrido: bool
-Descripción: Verifica si la entrada pertenece a un string
-Recursión: No
-|#
-(define (es-string string)
-  (if (string? string)
-      #t
-      #f))
-
-#|
 Función: hacer-sistema
 Dominio: string (nombre) x string (chatbot1)
 Recorrido: lista con elementos para un conjunto de chatbots, además del tiempo actual
@@ -21,9 +9,24 @@ Descripción: Crea una lista que representa un conjunto de chatbots
 (define (hacer-sistema nombre chatbot1)
   (list nombre chatbot1 (current-seconds)))
 
-#||#
-(define get-system-name car)
+#|
+Función: system-add-chatbot
+Dominio: system x chatbot
+Recorrido: system
+Descripción: 
+|#
+(define (system-add-chatbot nombre sistema)
+  (if (existe-nombre nombre cdr sistema)
+      (display "Este chatbot ya existe")
+      (system sistema nombre)))
 
-#||#
+#|
+Función: existe
+Dominio: nombre x lista
+Recorrido: lista de booleanos
+Descripción: Verifica la existencia del nombre en la lista de chatbots
+|#
+(define (existe-nombre nombreChatbot lista)
+  (map (lambda (x) (= x nombreChatbot)) lista))
 
 (provide (all-defined-out))

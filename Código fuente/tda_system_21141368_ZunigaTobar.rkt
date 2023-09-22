@@ -9,21 +9,24 @@ Descripción: Crea una lista que representa un conjunto de chatbots
 (define (hacer-sistema nombre chatbot1)
   (list nombre chatbot1 (current-seconds)))
 
-(define (hacer-chatbot nombre sistema)
-  ())
-
 #|
 Función: system-add-chatbot
 Dominio: system x chatbot
 Recorrido: system
-Descripción:
+Descripción: 
 |#
 (define (system-add-chatbot nombre sistema)
-  (if (existe nombre sistema)
+  (if (existe-chatbot nombre cdr sistema)
       (display "Este chatbot ya existe")
-      (hacer-chatbot nombre sistema)))
+      (system sistema nombre)))
 
-(define (existe chatbot lista)
-  (map (lambda (string) (= string chatbot)) lista))
+#|
+Función: existe-chatbot
+Dominio: nombre x lista
+Recorrido: lista de booleanos
+Descripción: Verifica la existencia del nombre en la lista de chatbots
+|#
+(define (existe-chatbot nombreChatbot lista)
+  (map (lambda (x) (= x nombreChatbot)) lista))
 
 (provide (all-defined-out))

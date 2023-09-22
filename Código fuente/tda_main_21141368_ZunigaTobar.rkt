@@ -25,19 +25,9 @@ Descripción
       (hacer-sistema string null)
       #f))
 
-;(define option )
-
 ;(define flow )
 
 ;(define flow-add-option )
-
-#|
-Función: Chatbot
-Dominio: 
-Recorrido: 
-Descripción: 
-|#
-;(define chatbot )
 
 ;(define system-add-user )
 

@@ -2,10 +2,4 @@
 
 (require "tda_system_21141368_ZunigaTobar.rkt")
 
-
-
-(define (option . args) args)
-
-(define op1 (option 1 "viajar" "Vajar" "Turistear"))
-
 (provide (all-defined-out))
