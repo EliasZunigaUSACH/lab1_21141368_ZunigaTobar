@@ -2,9 +2,4 @@
 
 (require "tda_system_21141368_ZunigaTobar.rkt")
 
-(define (flow id name-msg id opcion)
-  ())
-
-(define (flow-add-option opcion opciones))
-
 (provide (all-defined-out))

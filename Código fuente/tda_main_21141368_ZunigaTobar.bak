@@ -9,6 +9,10 @@ Profesor Gonzalo Matrinez
 
 (require "tda_system_21141368_ZunigaTobar.rkt")
 (require "tda_chatbot_21141368_ZunigaTobar.rkt")
+(require "tda_flow_21141368_ZunigaTobar.rkt")
+(require "tda_option_21141368_ZunigaTobar.rkt")
+(require "tda_user_21141368_ZunigaTobar.rkt")
+(require "tda_chatHistory_21141368_ZunigaTobar.rkt")
 
 #|
 Función:
@@ -17,27 +21,13 @@ Recorrido:
 Descripción
 |#
 (define (system string)
-  (if (es-string string)
+  (if (string? string)
       (hacer-sistema string null)
       #f))
-
-;(define system-add-chatbot )
-
-;(define option )
 
 ;(define flow )
 
 ;(define flow-add-option )
-
-#|
-Función: Chatbot
-Dominio:
-Recorrido:
-Descripción:
-|#
-;(define chatbot )
-
-;(define chatbot-add-flow )
 
 ;(define system-add-user )
 
@@ -55,6 +45,6 @@ Descripción:
 
 ;Ejecución
 
-(define s0 (system "New"))
+(define s0 (system "newSystem"))
 s0
 

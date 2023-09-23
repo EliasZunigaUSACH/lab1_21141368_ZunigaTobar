@@ -14,27 +14,6 @@ Profesor Gonzalo Matrinez
 (require "tda_user_21141368_ZunigaTobar.rkt")
 (require "tda_chatHistory_21141368_ZunigaTobar.rkt")
 
-#|
-Función:
-Dominio:
-Recorrido:
-Descripción
-|#
-(define (system string)
-  (if (string? string)
-      (hacer-sistema string null)
-      #f))
-
-;(define flow )
-
-;(define flow-add-option )
-
-;(define system-add-user )
-
-;(define system-login )
-
-;(define system-logout )
-
 ;(define system-talk-rec )
 
 ;(define system-talk )
@@ -45,6 +24,6 @@ Descripción
 
 ;Ejecución
 
-(define s0 (system "newSystem"))
+(define s0 (system "newSystem" 1))
 s0
 

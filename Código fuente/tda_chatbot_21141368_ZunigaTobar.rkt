@@ -9,7 +9,8 @@ Recorrido: chatbot
 Descripción: 
 Recursión: Ninguna
 |#
-(define (chatbot . args) args)
+(define (chatbot id nombre mensajeBienvenida flujoInicial Flujos)
+  (list id nombre mensajeBienvenida flujoInicial Flujos))
 
 #|
 Función: get-chatbotID
