@@ -11,7 +11,7 @@ Función:
 (define (get-chat chat user)
   (if (exists-chat chat user)))
 
-(define (exists-chat chat historial)
-  (map ))
+;(define (exists-chat chat historial)
+;  (map ))
 
 (provide (all-defined-out))

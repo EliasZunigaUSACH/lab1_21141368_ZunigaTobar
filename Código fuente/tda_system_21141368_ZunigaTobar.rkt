@@ -2,20 +2,25 @@
 
 #|
 Función: System
-Dominio: string (nombre) x 
-Recorrido:
-Descripción
+Dominio: string (nombre) x Código del chatbot inicial (número) x chatbot* (Puede recibir 0 chatbots
+ o más)
+Recorrido: System
+Recursión: Ninguna
+Descripción: 
 |#
-
-(define (system nombre InitialChatbotCodeLink chatbot)
-  (list nombre InitialChatbotCodeLink chatbot))
+(define system
+  (lambda (nombre initialChatbotCodeLink . chatbot)
+    (make-system nombre initialChatbotCodeLink chatbot)))
 
 #|
-(define (system string)
-  (if (string? string)
-      (hacer-sistema string null)
-      #f))
+Función: make-system
+Dominio: string (nombre) x Código del chatbot inicial (número) x chatbot
+Recorrido: Lista
+Recursión: Ninguna
+Descripción: 
 |#
+(define (make-system nombre initialChatbotCodeLink chatbot)
+  (list nombre initialChatbotCodeLink chatbot))
 
 #|
 Función: system-add-chatbot
@@ -42,7 +47,7 @@ Función: existe-usuario
 Dominio: string x lista
 Recorrido: Booleano
 Recursión: Ninguna
-Descripción: mediante map, verifica la existencia del nombre ingresado dentro de la lista de usuarios registrados
+Descripción: 
 |#
 (define (exists-usuario nombre miembros)
   (map (lambda (x) (= x nombre)) miembros))
@@ -50,14 +55,22 @@ Descripción: mediante map, verifica la existencia del nombre ingresado dentro d
 #|
 Función: system-add-user
 Dominio: lista (system) x string (nombre de usuario)
-Recorrido: lista (system)
+Recorrido: 
 Recursión: Ninguna
-Descripción: Agrega un usuario que no existía en el sistema anteriormente
+Descripción: 
 |#
 (define (system-add-user sistema usuario)
   (if (exists-usuario usuario sistema)
       (display "Este usuario ya existe en este sistema")
-      (users usuario)))
+      (1)))
+
+#|
+Función: users
+Dominio: String (nombres)
+Recorrido: 
+Recusión: Ninguna
+|#
+(define (users . usuario) usuario)
 
 ;(define system-login )
 

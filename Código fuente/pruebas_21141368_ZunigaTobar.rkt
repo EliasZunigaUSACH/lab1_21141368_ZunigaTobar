@@ -9,6 +9,8 @@
 (require "tda_user_21141368_ZunigaTobar.rkt")
 (require "tda_chatHistory_21141368_ZunigaTobar.rkt")
 
+
+
 ;Test 1
 
 (define op1 (option  1 "1) Viajar" 2 1 "viajar" "turistear" "conocer"))

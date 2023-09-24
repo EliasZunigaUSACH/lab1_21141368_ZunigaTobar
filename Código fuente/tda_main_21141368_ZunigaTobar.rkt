@@ -24,6 +24,8 @@ Profesor Gonzalo Matrinez
 
 ;Ejecución
 
+(define ch0 (chatbot 0 "Asistente" "Bienvenido querido usuario, ¿Qué desea hacer hoy?" 1))
+ch0
+
 (define s0 (system "newSystem" 1))
 s0
-

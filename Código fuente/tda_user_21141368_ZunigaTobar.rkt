@@ -3,14 +3,6 @@
 (require "tda_system_21141368_ZunigaTobar.rkt")
 
 #|
-Función: users
-Dominio: 
-Recorrido: 
-Recusión: Ninguna
-|#
-(define (users . user) user)
-
-#|
 Función: make-usuairo
 Dominio:
 Recorrido:
@@ -23,6 +15,6 @@ Descripción:
       (users nombre)))
 
 #||#
-;(define (get-user-conectado ))
+(define (get-user-conectado name sistema))
 
 (provide (all-defined-out))
