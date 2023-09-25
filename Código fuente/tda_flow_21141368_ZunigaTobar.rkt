@@ -41,9 +41,4 @@ Función: get-flow-options-ids
 (define (get-flow-options-ids flujo)
   (map get-option-id (cddr flujo)))
 
-#|
-Función: get-option-id
-|#
-(define get-option-id car)
-
 (provide (all-defined-out))

@@ -34,7 +34,7 @@ Descripción:
       (system sistema nombre)))
 
 #|
-Función: existe-chatbot
+Función: exists-chatbot
 Dominio: nombre x lista
 Recorrido: lista de booleanos
 Descripción: Verifica la existencia del nombre en la lista de chatbots
@@ -43,14 +43,14 @@ Descripción: Verifica la existencia del nombre en la lista de chatbots
   (map (lambda (x) (= x nombreChatbot)) lista))
 
 #|
-Función: existe-usuario
+Función: exists-user
 Dominio: string x lista
 Recorrido: Booleano
 Recursión: Ninguna
 Descripción: 
 |#
-(define (exists-usuario nombre miembros)
-  (map (lambda (x) (= x nombre)) miembros))
+(define (exists-user nombre sistema)
+  (map (lambda (x) (= x nombre)) (cdr (cdr (cdr (car sistema))))))
 
 #|
 Función: system-add-user
@@ -59,21 +59,25 @@ Recorrido:
 Recursión: Ninguna
 Descripción: 
 |#
-(define (system-add-user sistema usuario)
-  (if (exists-usuario usuario sistema)
+(define (system-add-user usuario sistema)
+  (if (exists-user usuario sistema)
       (display "Este usuario ya existe en este sistema")
-      (1)))
+      (add-user usuario sistema)))
 
 #|
-Función: users
-Dominio: String (nombres)
-Recorrido: 
-Recusión: Ninguna
+Función: add-user
 |#
-(define (users . usuario) usuario)
+(define (add-user usuario sistema)
+  (append sistema usuario))
 
-;(define system-login )
-
-;(define system-logout )
+#|
+Función: system-logout
+Domminio: system
+Recorrido: system
+Recursión: Ninguna
+Descripción: 
+|#
+;(define (system-logout sistema)
+;  (if (not )))
 
 (provide (all-defined-out))

@@ -25,4 +25,9 @@ Descripción:
 (define (make-option code message chatbotCodeLink initialFlowCodeLink keyword)
   (list code message chatbotCodeLink initialFlowCodeLink keyword))
 
+#|
+Función: get-option-id
+|#
+(define get-option-id car)
+
 (provide (all-defined-out))

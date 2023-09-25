@@ -14,6 +14,18 @@ Profesor Gonzalo Matrinez
 (require "tda_user_21141368_ZunigaTobar.rkt")
 (require "tda_chatHistory_21141368_ZunigaTobar.rkt")
 
+#|
+Función: system-login
+Dominio: system x string (Nombre de usuario)
+Recorrido:
+Recursión: Ninguna
+Descripción: 
+|#
+(define (system-login sistema usuario)
+  (if (and (exists-user usuario sistema) (not (a-user-conected sistema)))
+      (go system)
+      (display "Este usuario no existe")))
+
 ;(define system-talk-rec )
 
 ;(define system-talk )
