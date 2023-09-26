@@ -4,30 +4,45 @@
 
 #|
 Función: make-user
-Dominio:
-Recorrido:
-Recursión:
-Descripción:
+Dominio: string (nombre) X system
+Recorrido: lista
+Recursión: Niguna
+Descripción: 
 |#
 (define (make-user nombre sistema)
   (if (exists-user nombre sistema)
       (display "Este usuario ya existe")
       (list '(nombre 0))))
 
-#||#
-;(define (get-user-conectado sistema)
-;  (if (system-logged sistema)
-;      (get-user name)
-;      (display "Ningun usuario está conectado")))
-
+#|
+Función: a-user-conected
+Dominio: system
+Recorrido: boolean
+Recursión: Ninguna
+Descripción: 
+|#
 (define (a-user-conected sistema)
-  (if ()))
+  (or (equal? (get-users-status sistema) 1)
+      (display "Un usuario ya ha iniciado sesión")
+      #f))
 
-#||#
-(define (get-user-status name sistema)
+#|
+Función: get-users-status
+Dominio: system
+Recorrido: system
+Recursión: Ninguna
+Descripción:
+|#
+(define (get-users-status sistema)
   (map (get-status) (cdr (cdr (cdr sistema)))))
 
-#||#
+#|
+Función: get-status
+Dominio: lista
+Recorrido: número
+Recursión: Ninguna
+Descripción: 
+|#
 (define get-status cdar)
 
 (provide (all-defined-out))

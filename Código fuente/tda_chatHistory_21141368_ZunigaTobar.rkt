@@ -8,10 +8,10 @@ Función:
 (define (chatHistory . chats) chats)
 
 #||#
-(define (get-chat chat user)
-  (if (exists-chat chat user)))
+;(define (get-chat chatID user)
+;  (if (exists-chat chatID )))
 
-;(define (exists-chat chat historial)
-;  (map ))
+;(define (exists-chat chatID)
+;  (map get-chat-id )
 
 (provide (all-defined-out))
