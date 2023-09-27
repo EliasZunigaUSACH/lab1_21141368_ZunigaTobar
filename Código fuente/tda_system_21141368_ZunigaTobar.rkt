@@ -35,4 +35,9 @@ Función: add-user
 (define (add-user usuario sistema)
   (append sistema usuario))
 
+#|
+Función: members
+|#
+(define (members . users) users)
+
 (provide (all-defined-out))

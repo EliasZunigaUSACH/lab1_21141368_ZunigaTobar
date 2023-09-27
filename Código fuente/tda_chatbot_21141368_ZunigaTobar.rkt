@@ -12,6 +12,9 @@ Recursión: Ninguna
 (define (get-chatbotID chatbot)
   (car chatbot))
 
-;(define (already ))
+;(define (chatbot-repeated chatbot sistema)
+;  (or (equal? (get-flow-options-ids) (get-chatbotID chatbot))
+;      (display "Este chatbot ya existe")
+;      #f))
 
 (provide (all-defined-out))

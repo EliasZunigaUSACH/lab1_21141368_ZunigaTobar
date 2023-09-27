@@ -34,7 +34,7 @@ Recursión: Ninguna
 Descripción:
 |#
 (define flow
-  (lambda (flow id name-msg . opciones)
+  (lambda (id name-msg . opciones)
     (make-flow id name-msg opciones)))
 
 #|
@@ -46,8 +46,8 @@ Descripción:
 |#
 (define (flow-add-option opcion flujo)
   (if (equal? (get-option-id opcion) (get-flow-options-ids flujo))
-      0
-      (append flujo opcion)))
+      (display "Esta opción ya está agregada en este flujo")
+      (append (cdr flujo) opcion)))
 
 #|
 Función: Chatbot
@@ -65,12 +65,14 @@ Dominio: chatbot X flow
 Recorrido: flow
 Recursión: Natural
 |#
-(define (chatbot-add-flow chatbot flow)
-  (if (its-repeated chatbot flow)
-      (display "Este flujo ya está añadido")
-      (append flow (cdr (cdr (cdr (cdr chatbot)))))))
+(define (chatbot-add-flow chatbot flujo)
+  (if (flow-is-repeated chatbot flujo)
+      (display "Este flujo ya está añadido en este chatbot")
+      (if (null? chatbot)
+          (append chatbot '(flujo))
+          (chatbot-add-flow (cdr chatbot) flujo))))
 
-#|
+#| 
 Función: System
 Dominio: string (nombre) x Código del chatbot inicial (número) x chatbot* (Puede recibir 0 chatbots
  o más)
@@ -88,10 +90,10 @@ Dominio: system x chatbot
 Recorrido: system
 Descripción: 
 |#
-(define (system-add-chatbot nombre sistema)
-  (if (exists-chatbot nombre cdr sistema)
+(define (system-add-chatbot chatbot sistema)
+  (if (exists-chatbot chatbot (cdr sistema))
       (display "Este chatbot ya existe")
-      (system sistema nombre)))
+      (append sistema chatbot)))
 
 #|
 Función: system-add-user
@@ -114,7 +116,7 @@ Descripción:
 |#
 (define (system-login sistema usuario)
   (if (and (exists-user usuario sistema) (not (a-user-conected sistema)))
-      (go system)
+      (append sistema usuario)
       (display "Este usuario no existe")))
 
 #|
