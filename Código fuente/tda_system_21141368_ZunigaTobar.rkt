@@ -11,15 +11,6 @@ Descripción:
   (list nombre initialChatbotCodeLink chatbot))
 
 #|
-Función: exists-chatbot
-Dominio: nombre x lista
-Recorrido: lista de booleanos
-Descripción: Verifica la existencia del nombre en la lista de chatbots
-|#
-(define (exists-chatbot nombreChatbot lista)
-  (map (lambda (x) (= x nombreChatbot)) lista))
-
-#|
 Función: exists-user
 Dominio: string x lista
 Recorrido: Booleano
@@ -33,11 +24,6 @@ Descripción:
 Función: add-user
 |#
 (define (add-user usuario sistema)
-  (append sistema usuario))
-
-#|
-Función: members
-|#
-(define (members . users) users)
+  (cons sistema (cons usuario null)))
 
 (provide (all-defined-out))

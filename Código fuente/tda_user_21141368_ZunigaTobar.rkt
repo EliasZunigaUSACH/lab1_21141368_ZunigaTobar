@@ -11,8 +11,8 @@ Descripción:
 |#
 (define (make-user nombre sistema)
   (if (exists-user nombre sistema)
-      (display "Este usuario ya existe")
-      (list '(nombre 0))))
+      #t
+      (list nombre 0)))
 
 #|
 Función: a-user-conected
@@ -23,7 +23,7 @@ Descripción:
 |#
 (define (a-user-conected sistema)
   (or (equal? (get-users-status sistema) 1)
-      (display "Un usuario ya ha iniciado sesión")
+      #t
       #f))
 
 #|

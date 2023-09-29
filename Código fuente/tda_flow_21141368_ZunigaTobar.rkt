@@ -41,7 +41,7 @@ Descripción:
 |#
 (define (flow-is-repeated chatbot flujo)
   (or (equal? (get-flow-options-ids chatbot) (get-flow-id flujo))
-      (display "Este flujo ya está agregado en este chatbot")
+      #t
       #f))
 
 (provide (all-defined-out))

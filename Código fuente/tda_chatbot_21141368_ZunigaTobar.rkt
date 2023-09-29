@@ -9,12 +9,14 @@ Recorrido: ID (Número)
 Descripción: 
 Recursión: Ninguna
 |#
-(define (get-chatbotID chatbot)
-  (car chatbot))
+(define get-chatbotID car)
 
-;(define (chatbot-repeated chatbot sistema)
-;  (or (equal? (get-flow-options-ids) (get-chatbotID chatbot))
-;      (display "Este chatbot ya existe")
-;      #f))
+(define (chatbot-repeated chatbot sistema)
+  (or (equal? (get-chatbots-ids (cdddr sistema)) (get-chatbotID chatbot))
+      #t
+      #f))
+
+(define (get-chatbots-ids sistema)
+  (map get-chatbotID sistema))
 
 (provide (all-defined-out))

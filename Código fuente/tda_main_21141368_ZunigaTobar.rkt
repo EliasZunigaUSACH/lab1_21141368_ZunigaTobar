@@ -46,7 +46,7 @@ Descripción:
 |#
 (define (flow-add-option opcion flujo)
   (if (equal? (get-option-id opcion) (get-flow-options-ids flujo))
-      (display "Esta opción ya está agregada en este flujo")
+      (display "Esta opción ya está agregada en este flujo\n")
       (append (cdr flujo) opcion)))
 
 #|
@@ -67,9 +67,9 @@ Recursión: Natural
 |#
 (define (chatbot-add-flow chatbot flujo)
   (if (flow-is-repeated chatbot flujo)
-      (display "Este flujo ya está añadido en este chatbot")
+      (display "Este flujo ya está añadido en este chatbot\n")
       (if (null? chatbot)
-          (append chatbot '(flujo))
+          (cons chatbot (cons flujo null))
           (chatbot-add-flow (cdr chatbot) flujo))))
 
 #| 
@@ -90,10 +90,10 @@ Dominio: system x chatbot
 Recorrido: system
 Descripción: 
 |#
-(define (system-add-chatbot chatbot sistema)
-  (if (exists-chatbot chatbot (cdr sistema))
-      (display "Este chatbot ya existe")
-      (append sistema chatbot)))
+(define (system-add-chatbot sistema chatbot)
+  (if (chatbot-repeated chatbot sistema)
+      (display "Este chatbot ya existe\n")
+      (cons (cdr (cdr (car sistema))) (cons chatbot null))))
 
 #|
 Función: system-add-user
@@ -102,10 +102,12 @@ Recorrido:
 Recursión: Ninguna
 Descripción: 
 |#
-(define (system-add-user usuario sistema)
-  (if (exists-user usuario sistema)
-      (display "Este usuario ya existe en este sistema")
-      (add-user usuario sistema)))
+(define (system-add-user sistema usuario)
+  (if (null? (cdr sistema))
+      (add-user usuario sistema)
+      (if (exists-user usuario sistema)
+          (display "Este usuario ya existe en este sistema\n")
+          (add-user usuario sistema))))
 
 #|
 Función: system-login
@@ -115,9 +117,13 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (system-login sistema usuario)
-  (if (and (exists-user usuario sistema) (not (a-user-conected sistema)))
-      (append sistema usuario)
-      (display "Este usuario no existe")))
+  (if (null? (cdddr sistema))
+      (display "No hay ningun usuario registrado en el sistema\n")
+      (if (a-user-conected sistema)
+          (display "Un usuario ya ha iniciado sesión\n")
+          (if (exists-user usuario sistema)
+              (cons sistema (cons usuario null))
+              (display "Este usuario no existe\n")))))
 
 #|
 Función: system-logout
@@ -127,7 +133,9 @@ Recursión: Ninguna
 Descripción: 
 |#
 ;(define (system-logout sistema)
-;  (if (not )))
+;  (if (a-user-conected sistema)
+;      ()
+;      (display "No hay un usuario conectado")))
 
 
 ;(define system-talk-rec )
@@ -140,8 +148,20 @@ Descripción:
 
 ;EJECUCIÓN
 
-(define ch0 (chatbot 0 "Asistente" "Bienvenido querido usuario, ¿Qué desea hacer hoy?" 1))
-ch0
+(define op1 (option  1 "1) Viajar" 2 1 "viajar" "turistear" "conocer"))
 
-(define s0 (system "newSystem" 1))
-s0
+(define op2 (option  2 "2) Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
+
+(define f1 (flow 1 "flujo1" op1))
+
+(define ch0 (chatbot 0 "Asistente" "Bienvenido querido usuario, ¿Qué desea hacer hoy?" 1 f1))
+
+(define ch1 (chatbot 1 "lel" "merequetenge" 1 f1))
+
+(define s0 (system "newSystem" 0 ch0))
+
+(define s1 (system-add-chatbot s0 ch1))
+
+;(define s2 (system-add-user s1 "user1"))
+
+;(define s3 (system-login s2 "user1"))
