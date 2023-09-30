@@ -93,7 +93,7 @@ Descripción:
 (define (system-add-chatbot sistema chatbot)
   (if (chatbot-repeated chatbot sistema)
       (display "Este chatbot ya existe\n")
-      (cons (cdr (cdr (car sistema))) (cons chatbot null))))
+      (append sistema (list chatbot))))
 
 #|
 Función: system-add-user
@@ -103,11 +103,11 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (system-add-user sistema usuario)
-  (if (null? (cdr sistema))
-      (add-user usuario sistema)
+  (if (null? (cddr sistema))
+      (append* sistema (list usuario 0))
       (if (exists-user usuario sistema)
           (display "Este usuario ya existe en este sistema\n")
-          (add-user usuario sistema))))
+          (append* sistema (list usuario 0)))))
 
 #|
 Función: system-login
@@ -122,7 +122,7 @@ Descripción:
       (if (a-user-conected sistema)
           (display "Un usuario ya ha iniciado sesión\n")
           (if (exists-user usuario sistema)
-              (cons sistema (cons usuario null))
+              (conect-user sistema usuario)
               (display "Este usuario no existe\n")))))
 
 #|
@@ -162,6 +162,8 @@ Descripción:
 
 (define s1 (system-add-chatbot s0 ch1))
 
-;(define s2 (system-add-user s1 "user1"))
+(define s2 (system-add-user s1 "user1"))
+
+s1
 
 ;(define s3 (system-login s2 "user1"))

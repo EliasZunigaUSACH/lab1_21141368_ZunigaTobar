@@ -8,7 +8,7 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (make-system nombre initialChatbotCodeLink chatbot)
-  (list nombre initialChatbotCodeLink chatbot))
+  (list nombre (list null) initialChatbotCodeLink chatbot (current-seconds)))
 
 #|
 Función: exists-user
@@ -18,12 +18,8 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (exists-user nombre sistema)
-  (map (lambda (x) (= x nombre)) (cdr (cdr (cdr (car sistema))))))
-
-#|
-Función: add-user
-|#
-(define (add-user usuario sistema)
-  (cons sistema (cons usuario null)))
+  (if (null? (cdr (cdr (cdr (cdr sistema)))))
+      #f
+      (map (lambda (x) (= (car x) nombre)) (cdr (cdr (cdr (cdr sistema)))))))
 
 (provide (all-defined-out))

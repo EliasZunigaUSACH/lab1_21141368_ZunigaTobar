@@ -12,7 +12,7 @@ Recursión: Ninguna
 (define get-chatbotID car)
 
 (define (chatbot-repeated chatbot sistema)
-  (or (equal? (get-chatbots-ids (cdddr sistema)) (get-chatbotID chatbot))
+  (if (equal? (get-chatbots-ids (cadddr sistema)) (get-chatbotID chatbot))
       #t
       #f))
 

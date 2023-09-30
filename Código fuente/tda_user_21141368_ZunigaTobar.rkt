@@ -9,10 +9,10 @@ Recorrido: lista
 Recursión: Niguna
 Descripción: 
 |#
-(define (make-user nombre sistema)
-  (if (exists-user nombre sistema)
-      #t
-      (list nombre 0)))
+;(define (make-user nombre sistema)
+;  (if (exists-user nombre sistema)
+;      #t
+;      (list nombre 0)))
 
 #|
 Función: a-user-conected
@@ -34,7 +34,7 @@ Recursión: Ninguna
 Descripción:
 |#
 (define (get-users-status sistema)
-  (map (get-status) (cdr (cdr (cdr sistema)))))
+  (map (get-status) (last sistema)))
 
 #|
 Función: get-status
@@ -44,5 +44,9 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define get-status cdar)
+
+#||#
+(define (conect-user sistema usuario)
+  (append (remove usuario (last sistema)) (list (car usuario) 1)))
 
 (provide (all-defined-out))

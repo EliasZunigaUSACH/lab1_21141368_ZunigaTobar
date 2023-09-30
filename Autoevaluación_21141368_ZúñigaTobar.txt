@@ -7,7 +7,7 @@ Requerimientos No Funcionales:		Puntaje:
 Autoevaluación				
 Lenguaje				1
 Verisón					1
-Standard				
+Standard				1
 No variables				
 Documentación				
 Dom->Rec				
@@ -18,3 +18,19 @@ Prerrequisitos
 
 
 Requerimientos Funcionales:		Puntaje:
+
+TDA's					
+option
+flow
+flow-add-option
+chatbot
+chatbot-add-flow
+system
+system-add-chatbot
+system-add-user
+system-login
+system-logout
+system-talk-rec
+system-talk-norec
+system-synthesis
+system-simulate
