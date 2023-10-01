@@ -7,19 +7,15 @@ Recorrido: Lista
 Recursión: Ninguna
 Descripción: 
 |#
-(define (make-system nombre initialChatbotCodeLink chatbot)
-  (list nombre (list null) initialChatbotCodeLink chatbot (current-seconds)))
+(define (make-system nombre miembros usuario initialChatbotCodeLink chatbot)
+  (list nombre miembros usuario initialChatbotCodeLink (current-seconds) chatbot))
 
-#|
-Función: exists-user
-Dominio: string x lista
-Recorrido: Booleano
-Recursión: Ninguna
-Descripción: 
-|#
-(define (exists-user nombre sistema)
-  (if (null? (cdr (cdr (cdr (cdr sistema)))))
-      #f
-      (map (lambda (x) (= (car x) nombre)) (cdr (cdr (cdr (cdr sistema)))))))
+#||#
+(define get-system car)
+
+(define get-system-initialChatbot cadddr)
+
+(define (get-system-chatbots sistema)
+  (cdddr (cdr sistema)))
 
 (provide (all-defined-out))

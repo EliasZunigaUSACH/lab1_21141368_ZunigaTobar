@@ -20,7 +20,8 @@ Dominio: número (code) X string (message) X número (ChatbotCodeLink)
  X número (InitialFlowCodeLink) X strings* (0 o varias palabras claves)
 Recorrido = option
 Recursión: Ninguna
-Descripción:
+Descripción: Función constructora de una opción para flujo de un chatbot.
+             Cada opción se enlaza a un chatbot y flujo especificados por sus respectivos códigos.
 |#
 (define option
   (lambda (code message chatbotCodeLink initialFlowCodeLink . keyword)
@@ -31,7 +32,7 @@ Función: Flow
 Dominio: numero (id) x name-msg (String) x opciones* (Puede recibir 0 o más opciones)
 Recorrido: flow
 Recursión: Ninguna
-Descripción:
+Descripción: Función constructora de un flujo de un chatbot.
 |#
 (define flow
   (lambda (id name-msg . opciones)
@@ -41,8 +42,8 @@ Descripción:
 Función: flow-add-option
 Dominio: flow X option
 Recorrido: flow
-Recursión: Ninguna
-Descripción:
+Recursión: Ninguna (No está permitido su uso)
+Descripción: Función modificadora para añadir opciones a un flujo.
 |#
 (define (flow-add-option opcion flujo)
   (if (equal? (get-option-id opcion) (get-flow-options-ids flujo))
@@ -82,7 +83,7 @@ Descripción:
 |#
 (define system
   (lambda (nombre initialChatbotCodeLink . chatbot)
-    (make-system nombre initialChatbotCodeLink chatbot)))
+    (make-system null null nombre initialChatbotCodeLink chatbot)))
 
 #|
 Función: system-add-chatbot
@@ -103,11 +104,15 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (system-add-user sistema usuario)
-  (if (null? (cddr sistema))
-      (append* sistema (list usuario 0))
-      (if (exists-user usuario sistema)
-          (display "Este usuario ya existe en este sistema\n")
-          (append* sistema (list usuario 0)))))
+;  (if (null? (cddr sistema))
+;      (append* sistema (list usuario 0))
+;      (if (exists-user usuario sistema)
+;          (display "Este usuario ya existe en este sistema\n")
+;          (append* sistema (list usuario 0)))))
+  (if (exists-user usuario sistema)
+      (display "Este usuario ya existe en este sistema\n")
+;      (append (car (cdr sistema)) usuario)))
+      (register usuario sistema)))
 
 #|
 Función: system-login
@@ -117,13 +122,20 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (system-login sistema usuario)
-  (if (null? (cdddr sistema))
-      (display "No hay ningun usuario registrado en el sistema\n")
-      (if (a-user-conected sistema)
-          (display "Un usuario ya ha iniciado sesión\n")
-          (if (exists-user usuario sistema)
-              (conect-user sistema usuario)
-              (display "Este usuario no existe\n")))))
+;  (if (null? (cdddr sistema))
+;      (display "No hay ningun usuario registrado en el sistema\n")
+;      (if (a-user-conected sistema)
+;          (display "Un usuario ya ha iniciado sesión\n")
+;          (if (exists-user usuario sistema)
+;              (conect-user sistema usuario)
+;              (display "Este usuario no existe\n")))))
+  (if (null? (get-users sistema))
+             (display "No hay ningun usuario registrado en el sistema\n")
+             (if (a-user-conected sistema)
+                 (display "Un usuario ya ha iniciado sesión\n")
+                 (if (exists-user usuario sistema)
+                     (conect-user sistema usuario)
+                     (display "Este usuario no existe\n")))))
 
 #|
 Función: system-logout
@@ -132,10 +144,10 @@ Recorrido: system
 Recursión: Ninguna
 Descripción: 
 |#
-;(define (system-logout sistema)
-;  (if (a-user-conected sistema)
-;      ()
-;      (display "No hay un usuario conectado")))
+(define (system-logout sistema)
+  (if (a-user-conected sistema)
+      (reverse (append (remove last (reverse sistema)) (list null)))
+      (display "No hay un usuario conectado")))
 
 
 ;(define system-talk-rec )
@@ -164,6 +176,6 @@ Descripción:
 
 (define s2 (system-add-user s1 "user1"))
 
-s1
+(define s3 (system-login s2 "user1"))
 
-;(define s3 (system-login s2 "user1"))
+s3
