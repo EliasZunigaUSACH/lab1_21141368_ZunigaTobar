@@ -83,7 +83,7 @@ Descripción:
 |#
 (define system
   (lambda (nombre initialChatbotCodeLink . chatbot)
-    (make-system nombre null null initialChatbotCodeLink chatbot)))
+    (make-system null null nombre initialChatbotCodeLink chatbot)))
 
 #|
 Función: system-add-chatbot
@@ -94,7 +94,7 @@ Descripción:
 (define (system-add-chatbot sistema chatbot)
   (if (chatbot-repeated chatbot sistema)
       (display "Este chatbot ya existe\n")
-      (append* (cddddr sistema) (list chatbot))))
+      (append sistema (list chatbot))))
 
 #|
 Función: system-add-user
@@ -117,9 +117,9 @@ Descripción:
 #|
 Función: system-login
 Dominio: system x string (Nombre de usuario)
-Recorrido: system
+Recorrido:
 Recursión: Ninguna
-Descripción: Función que permite iniciar una sesión en el sistema.
+Descripción: 
 |#
 (define (system-login sistema usuario)
 ;  (if (null? (cdddr sistema))
@@ -142,16 +142,11 @@ Función: system-logout
 Domminio: system
 Recorrido: system
 Recursión: Ninguna
-Descripción: Función que permite cerrar una sesión abierta.
+Descripción: 
 |#
 (define (system-logout sistema)
   (if (a-user-conected sistema)
-      (make-system
-       (get-system sistema)
-       (get-users sistema)
-       null
-       (get-system-initialChatbot sistema)
-       (get-system-chatbots sistema))
+      (reverse (append (remove last (reverse sistema)) (list null)))
       (display "No hay un usuario conectado")))
 
 
@@ -183,6 +178,4 @@ Descripción: Función que permite cerrar una sesión abierta.
 
 (define s3 (system-login s2 "user1"))
 
-(define s4 (system-logout s3))
-
-s0
+s3

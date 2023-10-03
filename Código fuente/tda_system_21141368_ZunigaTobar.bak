@@ -16,6 +16,6 @@ Descripción:
 (define get-system-initialChatbot cadddr)
 
 (define (get-system-chatbots sistema)
-  (cddddr (cdr sistema)))
+  (cdddr (cdr sistema)))
 
 (provide (all-defined-out))

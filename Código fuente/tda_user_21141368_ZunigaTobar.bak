@@ -22,13 +22,13 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (exists-user nombre sistema)
-  (if (null? (get-users sistema))
+  (if (null? (car (cdr sistema)))
       #f
 ;      (map (lambda (x) (= (car x) nombre)) (cdr (cdr (cdr (cdr sistema)))))))
 ;      (if (member nombre (cdr (car sistema)))
 ;          #t
 ;          #f)))
-      (if (member nombre (get-users sistema))
+      (if (member nombre (car (cdr sistema)))
           #t
           #f)))
 
@@ -68,39 +68,16 @@ Descripción:
 
 #||#
 (define (conect-user sistema usuario)
-  (make-system (get-system sistema)
-               (get-users sistema)
-               usuario
-               (get-system-initialChatbot sistema)
-               (get-system-chatbots sistema)))
+  (make-system (get-system sistema) (get-users sistema) usuario (get-system-initialChatbot sistema) (get-system-chatbots sistema)))
 
-#|
-
-|#
 (define get-users cadr)
 
-#|
-
-|#
 (define get-user caddr)
 
-#|
-
-|#
 (define (register usuario sistema)
 ;  (reverse (append (remove last (reverse (cadr sistema))) (list usuario))))
   (if (null? (get-users sistema))
-      (make-system
-       (get-system sistema)
-       (list usuario)
-       null
-       (get-system-initialChatbot sistema)
-       (get-system-chatbots sistema))
-      (make-system
-       (get-system sistema)
-       (append (get-users sistema) usuario)
-       null
-       (get-system-initialChatbot sistema)
-       (get-system-chatbots sistema))))
+      (make-system (get-system sistema) (list usuario) null (get-system-initialChatbot sistema) (get-system-chatbots sistema))
+      (make-system (get-system sistema) (append (get-users sistema) usuario) null (get-system-initialChatbot sistema) (get-system-chatbots sistema))))
 
 (provide (all-defined-out))
