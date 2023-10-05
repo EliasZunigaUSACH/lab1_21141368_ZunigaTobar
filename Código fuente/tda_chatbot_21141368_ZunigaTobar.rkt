@@ -11,11 +11,25 @@ Recursión: Ninguna
 |#
 (define get-chatbotID car)
 
-(define (chatbot-repeated chatbot sistema)
-  (if (equal? (get-chatbots-ids (cdr (cdr (cdr (cdr (cdr sistema)))))) (get-chatbotID chatbot))
+#|
+Función: is-chatbot-repeated
+Dominio: chatbot X system
+Recorrido: Boolean
+Recursión: Ninguna
+Descripción: Verifica si el chatbot de entrada ya existe en el sistema
+|#
+(define (is-chatbot-repeated chatbot sistema)
+  (or (equal? (get-chatbots-ids (cddddr sistema)) (get-chatbotID chatbot))
       #t
       #f))
 
+#|
+Función: get-chatbots-ids
+Dominio: system
+Recorrido: lista de números (IDs)
+Recursión: Ninguna
+Descripción: Obtiene una lista de IDs de todos los chatbots del sistema
+|#
 (define (get-chatbots-ids sistema)
   (map get-chatbotID sistema))
 

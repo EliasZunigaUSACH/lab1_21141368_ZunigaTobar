@@ -5,7 +5,7 @@
 #|
 Función:
 |#
-(define (chatHistory . chats) chats)
+;(define (chatHistory . chats) chats)
 
 #||#
 ;(define (get-chat chatID user)

@@ -36,7 +36,7 @@ Descripción: Función constructora de un flujo de un chatbot.
 |#
 (define flow
   (lambda (id name-msg . opciones)
-    (make-flow id name-msg opciones)))
+    (make-flow id name-msg (filter-doubles-by-ID opciones get-option-id))))
 
 #|
 Función: flow-add-option
@@ -45,10 +45,10 @@ Recorrido: flow
 Recursión: Ninguna (No está permitido su uso)
 Descripción: Función modificadora para añadir opciones a un flujo.
 |#
-(define (flow-add-option opcion flujo)
-  (if (equal? (get-option-id opcion) (get-flow-options-ids flujo))
-      (display "Esta opción ya está agregada en este flujo\n")
-      (append (cdr flujo) opcion)))
+(define (flow-add-option flujo opcion)
+  (if (eq? (get-option-id opcion) (get-flow-options-ids flujo))
+      flujo
+      (append (cddr flujo) opcion)))
 
 #|
 Función: Chatbot
@@ -57,8 +57,8 @@ Recorrido: chatbot
 Descripción: 
 Recursión: Ninguna
 |#
-(define (chatbot id nombre mensajeBienvenida flujoInicial Flujos)
-  (list id nombre mensajeBienvenida flujoInicial Flujos))
+(define (chatbot id nombre mensajeBienvenida flujoInicial . Flujos)
+  (list id nombre mensajeBienvenida flujoInicial (filter-doubles-by-ID Flujos get-flow-id)))
 
 #|
 Función: chatbot-add-flow
@@ -68,8 +68,8 @@ Recursión: Natural
 |#
 (define (chatbot-add-flow chatbot flujo)
   (if (flow-is-repeated chatbot flujo)
-      (display "Este flujo ya está añadido en este chatbot\n")
-      (if (null? chatbot)
+      chatbot
+      (if (null? (cddddr chatbot))
           (cons chatbot (cons flujo null))
           (chatbot-add-flow (cdr chatbot) flujo))))
 
@@ -83,7 +83,7 @@ Descripción:
 |#
 (define system
   (lambda (nombre initialChatbotCodeLink . chatbot)
-    (make-system nombre null null initialChatbotCodeLink chatbot)))
+    (make-system nombre null null initialChatbotCodeLink (filter-doubles-by-ID chatbot get-chatbotID))))
 
 #|
 Función: system-add-chatbot
@@ -92,9 +92,13 @@ Recorrido: system
 Descripción: 
 |#
 (define (system-add-chatbot sistema chatbot)
-  (if (chatbot-repeated chatbot sistema)
-      (display "Este chatbot ya existe\n")
-      (append* (cddddr sistema) (list chatbot))))
+  (if (is-chatbot-repeated chatbot sistema)
+      sistema
+      (make-system (get-system sistema)
+                   (get-users sistema)
+                   (get-user sistema)
+                   (get-system-initialChatbot sistema)
+                   (append (car (cdr (cdr (cdr (cdr sistema))))) (list chatbot)))))
 
 #|
 Función: system-add-user
@@ -104,14 +108,8 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (system-add-user sistema usuario)
-;  (if (null? (cddr sistema))
-;      (append* sistema (list usuario 0))
-;      (if (exists-user usuario sistema)
-;          (display "Este usuario ya existe en este sistema\n")
-;          (append* sistema (list usuario 0)))))
   (if (exists-user usuario sistema)
-      (display "Este usuario ya existe en este sistema\n")
-;      (append (car (cdr sistema)) usuario)))
+      sistema
       (register usuario sistema)))
 
 #|
@@ -122,21 +120,13 @@ Recursión: Ninguna
 Descripción: Función que permite iniciar una sesión en el sistema.
 |#
 (define (system-login sistema usuario)
-;  (if (null? (cdddr sistema))
-;      (display "No hay ningun usuario registrado en el sistema\n")
-;      (if (a-user-conected sistema)
-;          (display "Un usuario ya ha iniciado sesión\n")
-;          (if (exists-user usuario sistema)
-;              (conect-user sistema usuario)
-;              (display "Este usuario no existe\n")))))
   (if (null? (get-users sistema))
-             (display "No hay ningun usuario registrado en el sistema\n")
+             sistema
              (if (a-user-conected sistema)
-                 (display "Un usuario ya ha iniciado sesión\n")
+                 sistema
                  (if (exists-user usuario sistema)
                      (conect-user sistema usuario)
-                     (display "Este usuario no existe\n")))))
-
+                     sistema))))
 #|
 Función: system-logout
 Domminio: system
@@ -151,11 +141,20 @@ Descripción: Función que permite cerrar una sesión abierta.
        (get-users sistema)
        null
        (get-system-initialChatbot sistema)
-       (get-system-chatbots sistema))
-      (display "No hay un usuario conectado")))
+       (car (get-system-chatbots sistema)))
+      sistema))
 
-
-;(define system-talk-rec )
+#|
+Función: system-talk-rec
+Domminio: system X string (mensaje)
+Recorrido: system
+Recursión: 
+Descripción: Función que permite interactuar con un chatbot.
+|#
+;(define (system-talk-rec sistema mensaje)
+;  (if (a-user-conected sistema)
+;      ()
+;      sistema))
 
 ;(define system-talk )
 
@@ -169,20 +168,30 @@ Descripción: Función que permite cerrar una sesión abierta.
 
 (define op2 (option  2 "2) Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
 
-(define f1 (flow 1 "flujo1" op1))
+(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
 
-(define ch0 (chatbot 0 "Asistente" "Bienvenido querido usuario, ¿Qué desea hacer hoy?" 1 f1))
+(define f11 (flow-add-option f10 op1)) ;se intenta añadir opción duplicada
 
-(define ch1 (chatbot 1 "lel" "merequetenge" 1 f1))
+(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10 f10 f10 f10))  ;solo añade una ocurrencia de f10
 
-(define s0 (system "newSystem" 0 ch0))
+(define s0 (system "Chatbots Paradigmas" 0 cb0 cb0 cb0))
 
-(define s1 (system-add-chatbot s0 ch1))
+(define s1 (system-add-chatbot s0 cb0)) ;igual a s0
 
 (define s2 (system-add-user s1 "user1"))
 
-(define s3 (system-login s2 "user1"))
+(define s3 (system-add-user s2 "user2"))
 
-(define s4 (system-logout s3))
+(define s4 (system-add-user s3 "user2")) ;solo añade un ocurrencia de user2
 
-s0
+(define s5 (system-add-user s4 "user3"))
+
+(define s6 (system-login s5 "user8")) ;user8 no existe. No inicia sesión
+
+(define s7 (system-login s6 "user1"))
+
+(define s8 (system-login s7 "user2"))  ;no permite iniciar sesión a user2, pues user1 ya inició sesión
+
+(define s9 (system-logout s8))
+
+f11
