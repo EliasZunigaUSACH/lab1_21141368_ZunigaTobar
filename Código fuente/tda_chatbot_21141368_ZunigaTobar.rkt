@@ -19,7 +19,7 @@ Recursión: Ninguna
 Descripción: Verifica si el chatbot de entrada ya existe en el sistema
 |#
 (define (is-chatbot-repeated chatbot sistema)
-  (or (equal? (get-chatbots-ids (cddddr sistema)) (get-chatbotID chatbot))
+  (if (member (get-chatbotID chatbot) (get-chatbots-ids (car (cddddr sistema))))
       #t
       #f))
 

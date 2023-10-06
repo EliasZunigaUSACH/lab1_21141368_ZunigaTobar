@@ -36,7 +36,7 @@ Descripción: Función constructora de un flujo de un chatbot.
 |#
 (define flow
   (lambda (id name-msg . opciones)
-    (make-flow id name-msg (filter-doubles-by-ID opciones get-option-id))))
+    (make-flow id name-msg opciones)))
 
 #|
 Función: flow-add-option
@@ -58,7 +58,7 @@ Descripción:
 Recursión: Ninguna
 |#
 (define (chatbot id nombre mensajeBienvenida flujoInicial . Flujos)
-  (list id nombre mensajeBienvenida flujoInicial (filter-doubles-by-ID Flujos get-flow-id)))
+  (list id nombre mensajeBienvenida flujoInicial Flujos))
 
 #|
 Función: chatbot-add-flow
@@ -83,7 +83,7 @@ Descripción:
 |#
 (define system
   (lambda (nombre initialChatbotCodeLink . chatbot)
-    (make-system nombre null null initialChatbotCodeLink (filter-doubles-by-ID chatbot get-chatbotID))))
+    (make-system nombre null null initialChatbotCodeLink chatbot)))
 
 #|
 Función: system-add-chatbot
@@ -98,7 +98,7 @@ Descripción:
                    (get-users sistema)
                    (get-user sistema)
                    (get-system-initialChatbot sistema)
-                   (append (car (cdr (cdr (cdr (cdr sistema))))) (list chatbot)))))
+                   (append (caar (cdr (cdr (cdr (cdr sistema))))) (list chatbot)))))
 
 #|
 Función: system-add-user
@@ -156,7 +156,15 @@ Descripción: Función que permite interactuar con un chatbot.
 ;      ()
 ;      sistema))
 
-;(define system-talk )
+#|
+Función: system-talk-norec
+Domminio: system X string (mensaje)
+Recorrido: system
+Recursión: Ninguna (Uso no permitido)
+Descripción: Función que permite interactuar con un chatbot.
+             Mismo propósito de la función anterior pero con una implementación declarativa.
+|#
+;(define (system-talk-norec sistema mensaje))
 
 ;(define system-synthesis )
 
@@ -168,13 +176,13 @@ Descripción: Función que permite interactuar con un chatbot.
 
 (define op2 (option  2 "2) Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
 
-(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
+(define f10 (flow 1 "flujo1" op1 op2)) ;solo añade una ocurrencia de op2
 
 (define f11 (flow-add-option f10 op1)) ;se intenta añadir opción duplicada
 
-(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10 f10 f10 f10))  ;solo añade una ocurrencia de f10
+(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10))  ;solo añade una ocurrencia de f10
 
-(define s0 (system "Chatbots Paradigmas" 0 cb0 cb0 cb0))
+(define s0 (system "Chatbots Paradigmas" 0 cb0))
 
 (define s1 (system-add-chatbot s0 cb0)) ;igual a s0
 
@@ -194,4 +202,4 @@ Descripción: Función que permite interactuar con un chatbot.
 
 (define s9 (system-logout s8))
 
-f11
+s5

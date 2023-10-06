@@ -24,11 +24,7 @@ Descripción: Verifica la existencia de un usuario en el sistema
 (define (exists-user nombre sistema)
   (if (null? (get-users sistema))
       #f
-;      (map (lambda (x) (= (car x) nombre)) (cdr (cdr (cdr (cdr sistema)))))))
-;      (if (member nombre (cdr (car sistema)))
-;          #t
-;          #f)))
-      (if (member nombre (get-users sistema))
+      (if (member (get-user-id nombre) (get-users-id sistema))
           #t
           #f)))
 
@@ -40,31 +36,29 @@ Recursión: Ninguna
 Descripción: Verifica si usuario ha iniciado sesion en el sistema
 |#
 (define (a-user-conected sistema)
-;  (or (equal? (get-users-status sistema) 1)
-;      #t
-;      #f))
   (if (not (null? (get-user sistema)))
       #t
       #f))
 
 #|
-Función: get-users-status
+Función: get-user-id
 Dominio: system
-Recorrido: system
+Recorrido: numero
 Recursión: Ninguna
-Descripción:
+Descripción: Obtiene el id del usuario
 |#
-;(define (get-users-status sistema)
-;  (map (get-status) (last sistema)))
+(define (get-user-id usuario)
+  (car (reverse (string->list usuario))))
 
 #|
-Función: get-status
-Dominio: lista
-Recorrido: número
+Función: get-users-id
+Dominio: system
+Recorrido: lista de números
 Recursión: Ninguna
-Descripción: 
+Descripción: Obtiene una lista con las IDs de los usuarios registrados en el sistema
 |#
-;(define get-status cdar)
+(define (get-users-id sistema)
+  (map get-user-id (cadr sistema)))
 
 #|
 Función: conect-user
@@ -106,7 +100,6 @@ Recursión: Ninguna
 Descripción: Registra el usuario ingresado al sistema
 |#
 (define (register usuario sistema)
-;  (reverse (append (remove last (reverse (cadr sistema))) (list usuario))))
   (if (null? (get-users sistema))
       (make-system
        (get-system sistema)

@@ -8,7 +8,7 @@ Recursión: Ninguna
 Descripción: 
 |#
 (define (make-system nombre miembros usuario initialChatbotCodeLink chatbot)
-  (list nombre miembros usuario initialChatbotCodeLink chatbot))
+  (list nombre miembros usuario initialChatbotCodeLink chatbot (current-seconds)))
 
 #|
 Función: get-system
@@ -42,7 +42,7 @@ Descripción: Obtiene la lista de todos los chatbots agregados al sistema
       null
       (if (null? (cdr lista))
           (cons (car lista) null)
-          (if (map (lambda (lst) (= (comando lst) (caar lista))) (cdr lista))
+          (if (member (comando (car lista)) (map comando (cdr lista)))
               (cons (car lista) (filter-doubles-by-ID (remw (car lista) (cdr lista)) comando))
               (cons (car lista) (filter-doubles-by-ID (cdr lista) comando))))))
 
