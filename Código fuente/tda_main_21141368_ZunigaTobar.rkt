@@ -36,7 +36,7 @@ Descripción: Función constructora de un flujo de un chatbot.
 |#
 (define flow
   (lambda (id name-msg . opciones)
-    (make-flow id name-msg opciones)))
+    (make-flow id name-msg (filter-doubles-by-ID opciones get-option-id))))
 
 #|
 Función: flow-add-option
@@ -57,8 +57,8 @@ Recorrido: chatbot
 Descripción: 
 Recursión: Ninguna
 |#
-(define (chatbot id nombre mensajeBienvenida flujoInicial . Flujos)
-  (list id nombre mensajeBienvenida flujoInicial Flujos))
+(define (chatbot id nombre mensajeBienvenida flujoInicial . flujos)
+  (list id nombre mensajeBienvenida flujoInicial (filter-doubles-by-ID flujos get-flow-id)))
 
 #|
 Función: chatbot-add-flow
@@ -83,7 +83,7 @@ Descripción:
 |#
 (define system
   (lambda (nombre initialChatbotCodeLink . chatbot)
-    (make-system nombre null null initialChatbotCodeLink chatbot)))
+    (make-system nombre null null initialChatbotCodeLink (filter-doubles-by-ID chatbot get-chatbotID))))
 
 #|
 Función: system-add-chatbot
@@ -127,6 +127,7 @@ Descripción: Función que permite iniciar una sesión en el sistema.
                  (if (exists-user usuario sistema)
                      (conect-user sistema usuario)
                      sistema))))
+
 #|
 Función: system-logout
 Domminio: system
@@ -176,13 +177,13 @@ Descripción: Función que permite interactuar con un chatbot.
 
 (define op2 (option  2 "2) Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
 
-(define f10 (flow 1 "flujo1" op1 op2)) ;solo añade una ocurrencia de op2
+(define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
 
 (define f11 (flow-add-option f10 op1)) ;se intenta añadir opción duplicada
 
-(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10))  ;solo añade una ocurrencia de f10
+(define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10 f10 f10 f10))  ;solo añade una ocurrencia de f10
 
-(define s0 (system "Chatbots Paradigmas" 0 cb0))
+(define s0 (system "Chatbots Paradigmas" 0 cb0 cb0 cb0))
 
 (define s1 (system-add-chatbot s0 cb0)) ;igual a s0
 
@@ -202,4 +203,4 @@ Descripción: Función que permite interactuar con un chatbot.
 
 (define s9 (system-logout s8))
 
-s5
+s0

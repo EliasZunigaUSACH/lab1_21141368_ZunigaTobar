@@ -37,13 +37,29 @@ Descripción: Obtiene la lista de todos los chatbots agregados al sistema
 |#
 (define get-system-chatbots cddddr)
 
-(define (filter-doubles-by-ID lista comando)
-  (if (null? lista)
-      null
-      (if (null? (cdr lista))
-          (cons (car lista) null)
-          (if (member (comando (car lista)) (map comando (cdr lista)))
-              (cons (car lista) (filter-doubles-by-ID (remw (car lista) (cdr lista)) comando))
-              (cons (car lista) (filter-doubles-by-ID (cdr lista) comando))))))
+#|
+Función: filter-doubles-by-ID
+Dominio: lista X comando (función)
+Recorrido: lista
+Recursión: Natural
+Descripción: Devuelve una lista sin elementos duplicados
+|#
+(define filter-doubles-by-ID
+  (lambda (lista comando)
+    (if (null? lista)
+        null
+        (if (null? (cdr lista))
+            (cons (car lista) null)
+            (if (member (comando (car lista)) (map comando (cdr lista)))
+                (cons (car lista) (filter-doubles-by-ID (filter (lambda (lst) (not (eq? (comando lst) (comando (car lista))))) (cdr lista)) comando))
+                (cons (car lista) (filter-doubles-by-ID (cdr lista) comando)))))))
+;(define (filter-doubles-by-ID lista comando)
+;  (if (null? lista)
+;      null
+;      (if (null? (cdr lista))
+;          (cons (car lista) null)
+;          (if (member (comando (car lista)) (map comando (cdr lista)))
+;              (cons (car lista) (filter-doubles-by-ID (remw (car lista) (cdr lista)) comando))
+;              (cons (car lista) (filter-doubles-by-ID (cdr lista) comando))))))
 
 (provide (all-defined-out))

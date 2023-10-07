@@ -4,15 +4,13 @@
 
 #|
 Función: make-user
-Dominio: string (nombre) X system
+Dominio: string (nombre)
 Recorrido: lista
 Recursión: Niguna
-Descripción: 
+Descripción: Se crea una lista con el usuario y una lista vacía para su historial de chat
 |#
-;(define (make-user nombre sistema)
-;  (if (exists-user nombre sistema)
-;      #t
-;      (list nombre )))
+(define (make-user nombre)
+     (list nombre (list null)))
 
 #|
 Función: exists-user
@@ -58,7 +56,7 @@ Recursión: Ninguna
 Descripción: Obtiene una lista con las IDs de los usuarios registrados en el sistema
 |#
 (define (get-users-id sistema)
-  (map get-user-id (cadr sistema)))
+  (map get-user-id (car (cadr sistema))))
 
 #|
 Función: conect-user
@@ -70,7 +68,7 @@ Descripción: Conecta el usuario de entrada para iniciar sesión
 (define (conect-user sistema usuario)
   (make-system (get-system sistema)
                (get-users sistema)
-               usuario
+               (find-user usuario (get-users sistema))
                (get-system-initialChatbot sistema)
                (car (get-system-chatbots sistema))))
 
@@ -103,15 +101,25 @@ Descripción: Registra el usuario ingresado al sistema
   (if (null? (get-users sistema))
       (make-system
        (get-system sistema)
-       (list usuario)
+       (list (make-user usuario))
        null
        (get-system-initialChatbot sistema)
        (car (get-system-chatbots sistema)))
       (make-system
        (get-system sistema)
-       (append (get-users sistema) (list usuario))
+       (append (get-users sistema) (make-user usuario))
        null
        (get-system-initialChatbot sistema)
        (car (get-system-chatbots sistema)))))
+
+#|
+Función: fund-user
+Dominio: string (nombre de usuario) X lista (Usuarios del sistema)
+Recorrido: null | lista
+Recursión: Ninguna
+Descripción: Busca y entrega el usuario de entrada dentro de la lista de usuarios del sistema
+|#
+(define (find-user usuario miembros)
+    (findf (lambda (lst) (= (car lst) (get-user-id usuario))) miembros))
 
 (provide (all-defined-out))

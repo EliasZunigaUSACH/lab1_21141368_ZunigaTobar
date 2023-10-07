@@ -3,15 +3,12 @@
 (require "tda_system_21141368_ZunigaTobar.rkt")
 
 #|
-Función:
+Función: history
+Dominio: symbol
+Recorrido: lista
+Recursión: Ninguna
+Descripción: Devuelve una lista inicialmente vacía para almacenar el hsitorial de chat de un usuario del sistema
 |#
-;(define (chatHistory . chats) chats)
-
-#||#
-;(define (get-chat chatID user)
-;  (if (exists-chat chatID )))
-
-;(define (exists-chat chatID)
-;  (map get-chat-id )
+(define (history . chat) chat)
 
 (provide (all-defined-out))
