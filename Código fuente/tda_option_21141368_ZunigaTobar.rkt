@@ -1,5 +1,12 @@
 #lang racket
 
+#|
+PARADIGMAS DE PROGRAMACIÓN LABORATORIO 1
+Nombre: Elías Zúñiga Tobar
+RUT: 21.141.368-9
+Profesor Gonzalo Matrinez
+|#
+
 (require "tda_system_21141368_ZunigaTobar.rkt")
 
 #|
@@ -8,8 +15,7 @@ Dominio: número (code) X string (message) X número (ChatbotCodeLink)
  X número (InitialFlowCodeLink) X strings (palabras claves)
 Recorrido: Lista
 Recursión: Ninguna
-Descripción: Se crea una opción con su ID, un mensaje de bienvenida, la ID del chatbot vinculado,
-             la ID del flow vinculado
+Descripción: Se crea una lista con los elementos ingresados, esta lista representará una opción
 |#
 (define (make-option code message chatbotCodeLink initialFlowCodeLink keyword)
   (list code message chatbotCodeLink initialFlowCodeLink keyword))

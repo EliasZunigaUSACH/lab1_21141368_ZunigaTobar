@@ -1,11 +1,19 @@
 #lang racket
 
 #|
+PARADIGMAS DE PROGRAMACIÓN LABORATORIO 1
+Nombre: Elías Zúñiga Tobar
+RUT: 21.141.368-9
+Profesor Gonzalo Matrinez
+|#
+
+#|
 Función: make-system
 Dominio: string (nombre) x Código del chatbot inicial (número) x chatbot
 Recorrido: Lista
 Recursión: Ninguna
-Descripción: 
+Descripción: Se crea una lista con los elementos ingresados más los segundos recurrentes,
+             esta lista representará un sistema
 |#
 (define (make-system nombre miembros usuario initialChatbotCodeLink chatbot)
   (list nombre miembros usuario initialChatbotCodeLink chatbot (current-seconds)))
@@ -53,13 +61,5 @@ Descripción: Devuelve una lista sin elementos duplicados
             (if (member (comando (car lista)) (map comando (cdr lista)))
                 (cons (car lista) (filter-doubles-by-ID (filter (lambda (lst) (not (eq? (comando lst) (comando (car lista))))) (cdr lista)) comando))
                 (cons (car lista) (filter-doubles-by-ID (cdr lista) comando)))))))
-;(define (filter-doubles-by-ID lista comando)
-;  (if (null? lista)
-;      null
-;      (if (null? (cdr lista))
-;          (cons (car lista) null)
-;          (if (member (comando (car lista)) (map comando (cdr lista)))
-;              (cons (car lista) (filter-doubles-by-ID (remw (car lista) (cdr lista)) comando))
-;              (cons (car lista) (filter-doubles-by-ID (cdr lista) comando))))))
 
 (provide (all-defined-out))

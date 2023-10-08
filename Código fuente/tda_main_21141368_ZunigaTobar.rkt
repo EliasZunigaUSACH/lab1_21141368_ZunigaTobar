@@ -7,6 +7,10 @@ RUT: 21.141.368-9
 Profesor Gonzalo Matrinez
 |#
 
+#|
+Este archivo estarán las funciones obligatorias para el laboratorio 1.
+|#
+
 (require "tda_system_21141368_ZunigaTobar.rkt")
 (require "tda_chatbot_21141368_ZunigaTobar.rkt")
 (require "tda_flow_21141368_ZunigaTobar.rkt")
@@ -15,7 +19,7 @@ Profesor Gonzalo Matrinez
 (require "tda_chatHistory_21141368_ZunigaTobar.rkt")
 
 #|
-Función: option
+Función: option - Constructor
 Dominio: número (code) X string (message) X número (ChatbotCodeLink)
  X número (InitialFlowCodeLink) X strings* (0 o varias palabras claves)
 Recorrido = option
@@ -28,7 +32,7 @@ Descripción: Función constructora de una opción para flujo de un chatbot.
     (make-option code message chatbotCodeLink initialFlowCodeLink keyword)))
 
 #|
-Función: Flow
+Función: Flow - Constructor
 Dominio: numero (id) x name-msg (String) x opciones* (Puede recibir 0 o más opciones)
 Recorrido: flow
 Recursión: Ninguna
@@ -39,7 +43,7 @@ Descripción: Función constructora de un flujo de un chatbot.
     (make-flow id name-msg (filter-doubles-by-ID opciones get-option-id))))
 
 #|
-Función: flow-add-option
+Función: flow-add-option - Modificador
 Dominio: flow X option
 Recorrido: flow
 Recursión: Ninguna (No está permitido su uso)
@@ -51,7 +55,7 @@ Descripción: Función modificadora para añadir opciones a un flujo.
       (append (cddr flujo) opcion)))
 
 #|
-Función: Chatbot
+Función: Chatbot - Constructor
 Dominio: ID (número) X nombre (String) X Mensaje de bienvenida (String) X StartFlowID (Número) X Flows
 Recorrido: chatbot
 Descripción: 
@@ -61,7 +65,7 @@ Recursión: Ninguna
   (list id nombre mensajeBienvenida flujoInicial (filter-doubles-by-ID flujos get-flow-id)))
 
 #|
-Función: chatbot-add-flow
+Función: chatbot-add-flow - Modificador
 Dominio: chatbot X flow
 Recorrido: flow
 Recursión: Natural
@@ -74,7 +78,7 @@ Recursión: Natural
           (chatbot-add-flow (cdr chatbot) flujo))))
 
 #| 
-Función: System
+Función: System - Constructor
 Dominio: string (nombre) x Código del chatbot inicial (número) x chatbot* (Puede recibir 0 chatbots
  o más)
 Recorrido: System
@@ -86,7 +90,7 @@ Descripción:
     (make-system nombre null null initialChatbotCodeLink (filter-doubles-by-ID chatbot get-chatbotID))))
 
 #|
-Función: system-add-chatbot
+Función: system-add-chatbot - Modificador
 Dominio: system x chatbot
 Recorrido: system
 Descripción: 
@@ -101,7 +105,7 @@ Descripción:
                    (append (caar (cdr (cdr (cdr (cdr sistema))))) (list chatbot)))))
 
 #|
-Función: system-add-user
+Función: system-add-user - Modificador
 Dominio: lista (system) x string (nombre de usuario)
 Recorrido: 
 Recursión: Ninguna
@@ -154,7 +158,10 @@ Descripción: Función que permite interactuar con un chatbot.
 |#
 ;(define (system-talk-rec sistema mensaje)
 ;  (if (a-user-conected sistema)
-;      ()
+;      (define (system-talk-rec-tail sistema mensaje)
+;        (if (member (string-downcase (mensaje)) ()))
+;          ()
+;          ())
 ;      sistema))
 
 #|
@@ -167,40 +174,57 @@ Descripción: Función que permite interactuar con un chatbot.
 |#
 ;(define (system-talk-norec sistema mensaje))
 
-;(define system-synthesis )
+#|
+Función: system-synthesis
+Domminio: system X string (mensaje)
+Recorrido: string (formateado para poder visualizarlo con display)
+Recursión: Ninguna (Uso no permitido)
+Descripción: Función que ofrece una síntesis del chatbot para un usuario particular
+             a partir de chatHistory contenido dentro del sistema
+|#
+;(define (system-synthesis sistema mensaje))
 
-;(define system-simulate )
+#|
+Función: system-simulate
+Domminio: system X número (max iteraciones) X número (semilla)
+Recorrido: system
+Recursión: Ninguna
+Descripción: Permite simular un diálogo entre dos chatbots del sistema.
+|#
+;(define (system-simulate iteraciones seed))
 
 ;EJECUCIÓN
 
+(provide (all-defined-out))
+
 (define op1 (option  1 "1) Viajar" 2 1 "viajar" "turistear" "conocer"))
-
 (define op2 (option  2 "2) Estudiar" 3 1 "estudiar" "aprender" "perfeccionarme"))
-
 (define f10 (flow 1 "flujo1" op1 op2 op2 op2 op2 op1)) ;solo añade una ocurrencia de op2
-
 (define f11 (flow-add-option f10 op1)) ;se intenta añadir opción duplicada
-
 (define cb0 (chatbot 0 "Inicial" "Bienvenido\n¿Qué te gustaría hacer?" 1 f10 f10 f10 f10))  ;solo añade una ocurrencia de f10
-
 (define s0 (system "Chatbots Paradigmas" 0 cb0 cb0 cb0))
-
 (define s1 (system-add-chatbot s0 cb0)) ;igual a s0
-
 (define s2 (system-add-user s1 "user1"))
-
 (define s3 (system-add-user s2 "user2"))
-
 (define s4 (system-add-user s3 "user2")) ;solo añade un ocurrencia de user2
-
 (define s5 (system-add-user s4 "user3"))
-
 (define s6 (system-login s5 "user8")) ;user8 no existe. No inicia sesión
-
 (define s7 (system-login s6 "user1"))
-
 (define s8 (system-login s7 "user2"))  ;no permite iniciar sesión a user2, pues user1 ya inició sesión
-
 (define s9 (system-logout s8))
 
-s0
+;op1
+;op2
+;f10
+;f11
+;cb0
+;s0
+;s1
+;s2
+;s3
+;s4
+;s5
+;s6
+;s7
+;s8
+;s9
