@@ -1,2 +1,7 @@
-Link Github: 
+REPOSITORIO
+Laboratorio 1 Paradigmas de programación
+Elías Zúñiga Tobar 21.141.368-9
+Profesor Gonzalo Martinez
+
+Link Github: https://github.com/EliasZunigaUSACH/lab1_21141368_ZunigaTobar.git
 Usuario: EliasZunigaUSACH

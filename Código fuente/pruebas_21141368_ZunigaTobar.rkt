@@ -84,10 +84,10 @@
 
 ; nuevo chatbot (3)
 (define op22 (option 1 "1) Videojuegos" 3 2 "juegos" "videojuegos"))
-(define op23 (option 2 "2) Ropa" 3 2 "ropa" "prendas" "zapatos" "pantalones" "poleras"))
+(define op23 (option 2 "2) Ropa" 3 1 "ropa" "prendas" "zapatos" "pantalones" "poleras"))
 (define op24 (option 3 "3) Volver" 0 1 "volver" "salir" "regresar"))
-(define f40 (flow 1 "Flujo 1 Chatbot3\n¿Qué te gustaría comprar?" op22 op23 op24))
-(define cb3 (chatbot 3 "Agencia de compras" "Bienvenido\n¿Qué te gustaría comprar" 1 f40))
+(define f40 (flow 1 "Flujo 1 Chatbot3\n ¿Qué te gustaría comprar?" op22 op23 op24))
+(define cb3 (chatbot 3 "Agencia de compras" "Bienvenido\n ¿Qué te gustaría comprar" 1 f40))
 
 ;op22
 ;op23
@@ -97,10 +97,10 @@
 
 ; nuevo chatbot (4)
 (define op25 (option 1 "1) Fideos" 4 1 "fideos" "espagueti" "pasta"))
-(define op26 (option 2 "2) Arroz" 4 2 "arroz"))
+(define op26 (option 2 "2) Arroz" 4 1 "arroz"))
 (define op27 (option 3 "3) Volver" 0 1 "volver" "salir" "regresar"))
-(define f50 (flow 1 "Flujo 1 Chatbot4\n¿Qué te gustaría cocinar?" op25 op26 op27))
-(define cb4 (chatbot 4 "" 1 f50))
+(define f50 (flow 1 "Flujo 1 Chatbot4\n ¿Qué te gustaría cocinar?" op25 op26 op27))
+(define cb4 (chatbot 4 "Cocinero" "Bienvenido\n ¿Qué te gustaría cocinar" 1 f50))
 
 ;op25
 ;op26
@@ -109,17 +109,50 @@
 ;cb4
 
 ; nuevo chatbot (5)
-(define op28 (option 1 "1) Libro" 5 1 "libro"))
-(define op29 (option 2 "2) Artículo" 5 2 "internet" "artículo"))
+(define op28 (option 1 "1) Libros" 5 1 "libro" "libros"))
+(define op29 (option 2 "2) Página" 5 1 "web" "internet"))
 (define op30 (option 3 "3) Volver" 0 1 "Volver" "Salir" "Regresar"))
-(define f60 (flow 1 "Flujo 1 Chatbot5\n¿Qué te gustaría leer?" op28 op29 op30))
-(define cb5 (chatbot 5 "" 1 f60))
+(define f60 (flow 1 "Flujo 1 Chatbot5\n ¿Qué te gustaría leer?" op28 op29 op30))
+(define cb5 (chatbot 5 "Bibliotecario" "Bienvenido\n ¿Qué te gustaría leer" 1 f60))
 
 ;op27
 ;op28
 ;op29
 ;f60
 ;cb5
+
+; segundo flujo chatbot3
+(define op31 (option 1 "1) Steam" 3 2 "steam"))
+(define op32 (option 2 "2) Epic Games" 3 2 "epic" "epic games"))
+(define f41 (flow 2 "Flujo 2 Chatbot3\n Elije una de estas tiendas" op31 op32))
+(define cb31 (chatbot-add-flow cb3 f41))
+
+;op31
+;op32
+;f41
+;cb31
+
+; segundo flujo chatbot4
+(define op33 (option 1 "1) Salsa para los fideos" 4 2 "salsa"))
+(define op34 (option 2 "2) Ensalada" 4 2 "ensalada"))
+(define f51 (flow 2 "Flujo 2 Chatbot4\n¿Desea cocinar algo más?" op33 op34))
+(define cb41 (chatbot-add-flow cb4 f51))
+
+;op33
+;op34
+;f51
+;cb41
+
+; segundo flujo chatbot5
+(define op35 (option 1 "1) Si" 5 2 "si" "yes"))
+(define op36 (option 2 "2) No" 5 2 "no" "nope"))
+(define f61 (flow 2 "Flujo 2 Chatbot5\n ¿Buscas una página en específico?" op35 op36))
+(define cb51 (chatbot-add-flow cb5 f61))
+
+;op35
+;op36
+;f61
+;cb51
 
 ; Sistema
 (define s0 (system "Chatbots Paradigmas" 0 cb0 cb0 cb0 cb1 cb2))
@@ -133,6 +166,7 @@
 (define s8 (system-login s7 "user2"))
 (define s9 (system-logout s8))
 (define s10 (system-login s9 "user2"))
+
 (define s11 (system-logout s10))
 (define s12 (system-add-user s11 "user4"))
 (define s13 (system-login s12 "user4"))
@@ -141,9 +175,10 @@
 (define s16 (system-login s15 "user6"))
 (define s17 (system-logout s16))
 (define s18 (system-add-user s17 "user6"))
-(define s19 (system-add-chatbot s18 cb3))
-(define s20 (system-add-chatbot s19 cb4))
-(define s21 (system-add-chatbot s20 cb5))
+
+(define s19 (system-add-chatbot s18 cb31))
+(define s20 (system-add-chatbot s19 cb41))
+(define s21 (system-add-chatbot s20 cb51))
 (define s22 (system-login s21 "user6"))
 (define s23 (system-logout s22))
 
@@ -158,3 +193,16 @@
 ;s8
 ;s9
 ;s10
+;s11
+;s12
+;s13
+;s14
+;s15
+;s16
+;s17
+;s18
+;s19
+;s20
+;s21
+;s22
+;s23

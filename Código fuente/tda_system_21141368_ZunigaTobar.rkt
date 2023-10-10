@@ -9,11 +9,10 @@ Profesor Gonzalo Matrinez
 
 #|
 Función: make-system
-Dominio: string (nombre) x Código del chatbot inicial (número) x chatbot
+Dominio: string (nombre) X lista (Usuarios con su historial) X string (usuario conectado) X Código del chatbot inicial (número) X chatbot
 Recorrido: Lista
 Recursión: Ninguna
-Descripción: Se crea una lista con los elementos ingresados más los segundos recurrentes,
-             esta lista representará un sistema
+Descripción: Se crea una lista con los elementos ingresados, además de dejar registro de la fecha de creación.
 |#
 (define (make-system nombre miembros usuario initialChatbotCodeLink chatbot)
   (list nombre miembros usuario initialChatbotCodeLink chatbot (current-seconds)))

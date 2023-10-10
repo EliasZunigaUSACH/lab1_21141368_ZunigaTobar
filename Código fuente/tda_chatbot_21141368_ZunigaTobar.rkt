@@ -10,6 +10,16 @@ Profesor Gonzalo Matrinez
 (require "tda_system_21141368_ZunigaTobar.rkt")
 
 #|
+Función: make-chatbot
+Dominio: ID (número) X nombre (String) X Mensaje de bienvenida (String) X StartFlowID (Número) X Flows
+Recorrido: lista
+Recursión: Ninguna
+Descripción: Se crea el un chatbot
+|#
+(define (make-chatbot id nombre mensajeBienvenida flujoInicial flujos)
+  (list id nombre mensajeBienvenida flujoInicial flujos))
+
+#|
 Función: get-chatbotID
 Dominio: chatbot
 Recorrido: ID (Número)
@@ -17,6 +27,15 @@ Recursión: Ninguna
 Descripción: Obtiene la ID de un chatbot
 |#
 (define get-chatbotID car)
+
+#|
+Función: get-chatbot-flows
+Dominio: chatbot
+Recorrido: lista de flujos
+Recursión: Niguna
+Descripción: Obtiene los flujos de un chatbot
+|#
+(define get-chatbot-flows cddddr)
 
 #|
 Función: is-chatbot-repeated

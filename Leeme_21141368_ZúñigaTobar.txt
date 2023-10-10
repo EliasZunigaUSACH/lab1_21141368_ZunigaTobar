@@ -1,0 +1,14 @@
+ARCHIVO LEEME.TXT
+Laboratorio 1 Paradigmas de programación
+Elías Zúñiga Tobar 21.141.368-9
+Profesor Gonzalo Martinez
+
+-El código se encuentra en la carpeta "Código fuente"
+
+-Los requerimientos funcionales se definieron en el archivo "tda_main_21141368_ZunigaTobar.rkt"
+
+-Para el uso de algunos requerimientos funcionales como el agregado de chatbots al sistema (asumiendo que el sistema yá está creado) se recomienda el siguiente orden de definiciones:
+
+	option -> flow -> flow-add-option (opcional) -> chatbot -> chatbot-add-flow (opcional) -> system-add-chatbot
+
+-A pesar de no estar definidas las funciones system-talk-rec, system-talk-norec, system-synthesis ni system-simulate, las otras funciones entregan los resultados esperados de acuerdo al enunciado y los scripts, además de contar con más ejemplos.

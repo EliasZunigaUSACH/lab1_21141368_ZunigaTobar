@@ -14,7 +14,7 @@ Función: history
 Dominio: symbol
 Recorrido: lista
 Recursión: Ninguna
-Descripción: Crea una lista inicialmente vacía para almacenar el historial de chat de un usuario del sistema
+Descripción: Crea una lista inicialmente vacía para almacenar el hsitorial de chat de un usuario del sistema
 |#
 (define (history . chat) chat)
 

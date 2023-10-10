@@ -16,7 +16,7 @@ Función: make-flow
 Dominio: numero (id) x name-msg (String) x opciones
 Recorrido: Lista
 Recursión: Ninguna
-Descripción: Se crea una lista con los elementos ingresados, esta lista representará un flujo
+Descripción: Se crea una lista con los elementos ingrersados, esta lista representará un flujo
 |#
 (define (make-flow id name-msg opciones)
   (list id name-msg opciones))
@@ -41,7 +41,7 @@ Descripción: Obtiene la id de un flujo
 (define get-flow-id car)
 
 #|
-Función: get-flow-options
+Función: get-flow-id
 Dominio: flow
 Recorrido: lista de opciones)
 Recursión: Ninguna
@@ -67,7 +67,7 @@ Dominio: lista de flujos X flujo X acumulador de listas (acc)
 Recorrido: lista de flujos acumulados (acc)
 Recursión: Cola
 Descripcion: Mediante una coparacion de uno en uno, se verifica
-             si el flujo de entrada ya existe dentro del chatbot
+             si el flujo de entraada ya existe dentro del chatbot
 |#
 (define (chAddFlw-tail chatbotFlows flujo acc)
   (if (null? chatbotFlows)

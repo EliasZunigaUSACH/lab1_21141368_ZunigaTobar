@@ -38,7 +38,7 @@ Función: a-user-conected
 Dominio: system
 Recorrido: boolean
 Recursión: Ninguna
-Descripción: Verifica si usuario ha iniciado sesión en el sistema
+Descripción: Verifica si usuario ha iniciado sesion en el sistema
 |#
 (define (a-user-conected sistema)
   (if (not (null? (get-user sistema)))

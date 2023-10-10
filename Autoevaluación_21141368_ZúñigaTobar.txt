@@ -1,4 +1,5 @@
-Autoevaluación Laboratorio 1 Paradigmas de programación
+AUTOEVALUACIÓN
+Laboratorio 1 Paradigmas de programación
 Elías Zúñiga Tobar 21.141.368-9
 Profesor Gonzalo Martinez
 
@@ -6,7 +7,7 @@ Requerimientos No Funcionales:		Puntaje:
 
 Autoevaluación				1
 Lenguaje				1
-Verisón					1 Se utilizó la versión 8.10 de DrRacket
+Verisón					1
 Standard				1
 No variables				1
 Documentación				1
@@ -28,7 +29,7 @@ flow					1
 flow-add-option				1
 chatbot					1
 chatbot-add-flow			1
-system					0.75 No se guarda el chatHistory simplemente por la falta de las funciones requeridas 					     para dicha acción
+system					1
 system-add-chatbot			1
 system-add-user				1
 system-login				1
